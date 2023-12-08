@@ -3,6 +3,8 @@ import type { AdminInfoPage, OrganizationInfoPage, RegisterServerPage } from '@r
 import type { ComponentProps, Dispatch, SetStateAction } from 'react';
 import { createContext, useContext } from 'react';
 
+//console.log(AdminInfoPage);
+
 type SetupWizardData = {
 	organizationData: Parameters<ComponentProps<typeof OrganizationInfoPage>['onSubmit']>[0];
 	serverData: Parameters<ComponentProps<typeof RegisterServerPage>['onSubmit']>[0];

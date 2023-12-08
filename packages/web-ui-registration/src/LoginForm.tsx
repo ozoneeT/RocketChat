@@ -24,6 +24,47 @@ import EmailConfirmationForm from './EmailConfirmationForm';
 import LoginServices from './LoginServices';
 import type { DispatchLoginRouter } from './hooks/useLoginRouter';
 
+import {
+	ThirdwebProvider,
+	ConnectWallet,
+	metamaskWallet,
+	coinbaseWallet,
+	walletConnect,
+	localWallet,
+	embeddedWallet,
+  } from "@thirdweb-dev/react";
+  
+  export default function App() {
+	return (
+	  <ThirdwebProvider
+		activeChain="mumbai"
+		clientId="YOUR_CLIENT_ID"
+		locale={en()}
+		supportedWallets={[
+		  metamaskWallet(),
+		  coinbaseWallet({ recommended: true }),
+		  walletConnect(),
+		  localWallet(),
+		  embeddedWallet({
+			auth: {
+			  options: [
+				"email",
+				"google",
+				"apple",
+				"facebook",
+			  ],
+			},
+		  }),
+		]}
+	  >
+		<ConnectWallet
+		  theme={"dark"}
+		  modalSize={"wide"}
+		/>
+	  </ThirdwebProvider>
+	);
+  }
+
 const LOGIN_SUBMIT_ERRORS = {
 	'error-user-is-not-activated': {
 		type: 'warning',
@@ -54,6 +95,8 @@ const LOGIN_SUBMIT_ERRORS = {
 		i18n: 'registration.page.login.errors.invalidEmail',
 	},
 } as const;
+
+const logBtn = () =>{console.log("clicked")};
 
 export type LoginErrors = keyof typeof LOGIN_SUBMIT_ERRORS;
 
@@ -133,6 +176,7 @@ export const LoginForm = ({ setLoginRoute }: { setLoginRoute: DispatchLoginRoute
 			</Form.Header>
 			{showFormLogin && (
 				<>
+				<Button onClick={logBtn}>Login With Wallte</Button>
 					<Form.Container>
 						<FieldGroup disabled={loginMutation.isLoading}>
 							<Field>
